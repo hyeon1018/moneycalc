@@ -38,7 +38,7 @@ import Model.SqlConnection;
 
 //Use made Picture
 
-public class AddEditDesc extends JFrame {
+public class AddEditQuick extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textField;
@@ -54,8 +54,6 @@ public class AddEditDesc extends JFrame {
 	JComboBox comboBox_2;
 	JComboBox comboBox;
 	JEditorPane editorPane;
-	//image
-	JLabel imagelabel;
 	Dimension di;
 
 	View view;
@@ -63,7 +61,7 @@ public class AddEditDesc extends JFrame {
 	Describe desc;
 
 	/** Create the frame. **/
-	public AddEditDesc(Describe d, View vf) {
+	public AddEditQuick(Describe d, View vf) {
 
 		this.view = vf;
 		this.desc = d;
@@ -71,7 +69,7 @@ public class AddEditDesc extends JFrame {
 		Main.setUIFont(new javax.swing.plaf.FontUIResource("Malgun Gothic",Font.PLAIN,13));
 
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 400, 300);
+		setBounds(100, 100, 300, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -81,6 +79,7 @@ public class AddEditDesc extends JFrame {
 		spinner.setModel(new SpinnerNumberModel(2015, 1950, 2500, 1));
 		spinner.setBounds(12, 13, 61, 22);
 		contentPane.add(spinner);
+		spinner.setEnabled(false);
 
 		JLabel label = new JLabel(" / ");
 		label.setBounds(74, 13, 18, 22);
@@ -90,7 +89,8 @@ public class AddEditDesc extends JFrame {
 		spinner_1.setModel(new SpinnerNumberModel(5, 1, 12, 1));
 		spinner_1.setBounds(85, 13, 44, 22);
 		contentPane.add(spinner_1);
-
+		spinner_1.setEnabled(false);
+		
 		JLabel label_1 = new JLabel(" / ");
 		label_1.setBounds(127, 13, 18, 22);
 		contentPane.add(label_1);
@@ -99,17 +99,20 @@ public class AddEditDesc extends JFrame {
 		spinner_2.setModel(new SpinnerNumberModel(20, 1, 31, 1));
 		spinner_2.setBounds(141, 13, 44, 22);
 		contentPane.add(spinner_2);
-
+		spinner_2.setEnabled(false);
+		
 		spinner_4 = new JSpinner();
 		spinner_4.setModel(new SpinnerNumberModel(0, 0, 23, 1));
 		spinner_4.setBounds(84, 48, 44, 22);
 		contentPane.add(spinner_4);
-
+		spinner_4.setEnabled(false);
+		
 		spinner_5 = new JSpinner();
 		spinner_5.setModel(new SpinnerNumberModel(0, 0, 60, 1));
 		spinner_5.setBounds(141, 48, 44, 22);
 		contentPane.add(spinner_5);
-
+		spinner_5.setEnabled(false);
+		
 		JLabel label_2 = new JLabel(" / ");
 		label_2.setBounds(127, 48, 18, 22);
 		contentPane.add(label_2);
@@ -139,39 +142,8 @@ public class AddEditDesc extends JFrame {
 		editorPane.setBounds(12, 82, 173, 56);
 		contentPane.add(editorPane);
 
-		JPanel panel = new JPanel();
-		panel.setBackground(Color.WHITE);
-		panel.setBounds(197, 13, 173, 160);
-		contentPane.add(panel);
-		imagelabel = new JLabel();
-		imagelabel.setHorizontalAlignment(JLabel.CENTER);
-		panel.add(imagelabel);
-		di = panel.getSize();
-
-		JButton btnNewButton = new JButton("사진변경");
-		btnNewButton.setBounds(197, 185, 89, 25);
-		contentPane.add(btnNewButton);
-		btnNewButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				fileChoose();
-			}
-		});
-
-		JButton btnRemove = new JButton("삭제");
-		btnRemove.setBounds(298, 185, 72, 25);
-		contentPane.add(btnRemove);
-		btnRemove.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				desc.setImage(null);
-				setValue();
-			}
-		});
-
-		JButton button = new JButton("기록");
-		button.setBounds(197, 220, 89, 25);
+		JButton button = new JButton("확인");
+		button.setBounds(197, 150, 73, 25);
 		contentPane.add(button);
 		button.addActionListener(new ActionListener() {
 
@@ -183,7 +155,7 @@ public class AddEditDesc extends JFrame {
 		});
 
 		JButton button_1 = new JButton("취소");
-		button_1.setBounds(298, 220, 72, 25);
+		button_1.setBounds(197, 220, 73, 25);
 		contentPane.add(button_1);
 		button_1.addActionListener(new ActionListener() {
 
@@ -193,6 +165,21 @@ public class AddEditDesc extends JFrame {
 				dispose();
 			}
 		});
+		
+		JButton btnNewButton = new JButton("삭제");
+		btnNewButton.setBounds(197, 185, 73, 25);
+		contentPane.add(btnNewButton);
+		btnNewButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				desc.deleteQuick();
+				vf.updateView();
+				dispose();
+			}
+		});
+		
 
 
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -203,12 +190,6 @@ public class AddEditDesc extends JFrame {
 	public void setValue(){
 
 		this.setTitle(Integer.toString(desc.getNum()));
-
-		spinner.setValue(desc.getCal().get(Calendar.YEAR));
-		spinner_1.setValue(desc.getCal().get(Calendar.MONTH) + 1);
-		spinner_2.setValue(desc.getCal().get(Calendar.DATE));
-		spinner_4.setValue(desc.getCal().get(Calendar.HOUR));
-		spinner_5.setValue(desc.getCal().get(Calendar.MINUTE));
 
 		if(desc.getAmount() < 0 ){
 			comboBox_2.setSelectedIndex(1);
@@ -221,7 +202,6 @@ public class AddEditDesc extends JFrame {
 		}
 
 		try{
-			imagelabel.setIcon(desc.getScaledImage(di));
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -246,11 +226,6 @@ public class AddEditDesc extends JFrame {
 	}
 
 	public void getValue() throws SQLException, NullPointerException, ParseException{
-		desc.getCal().set(Calendar.YEAR, (int)spinner.getValue());
-		desc.getCal().set(Calendar.MONTH, (int)spinner_1.getValue() -1);
-		desc.getCal().set(Calendar.DATE, (int)spinner_2.getValue());
-		desc.getCal().set(Calendar.HOUR, (int)spinner_4.getValue());
-		desc.getCal().set(Calendar.MINUTE, (int)spinner_5.getValue());
 
 		desc.setDesc(editorPane.getText());
 
@@ -281,36 +256,16 @@ public class AddEditDesc extends JFrame {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(this, "오류가 발생하였습니다. 입력을 확인해 주세요", "ERROR", JOptionPane.ERROR_MESSAGE);
 		}
-
-
+		
 		if(desc.isWrited()){
-			desc.editDescribe();
+			desc.editQuick();
 		}
 		else{
-			desc.addDescribe();
+			desc.addQuick();
 		}
-
 
 		view.updateView();
 		dispose();
-
-	}
-
-	public void fileChoose(){
-		try {
-			getValue();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		JFileChooser jfc = new JFileChooser();
-		int choice = jfc.showOpenDialog(this);
-		if(choice == JFileChooser.APPROVE_OPTION){
-			File file = jfc.getSelectedFile();
-			desc.setImage(new ImageIcon(file.getAbsolutePath()));
-		}
-
-		setValue();
 
 	}
 
@@ -327,7 +282,6 @@ public class AddEditDesc extends JFrame {
 		}
 		comboBox.setModel(new DefaultComboBoxModel(v));
 	}
-
 	public void setSortBox(){
 		ResultSet rs = SqlConnection.getInstance().sendQuery("SELECT SORTINFO FROM SORT");
 		Vector<String> v = new Vector<String>();

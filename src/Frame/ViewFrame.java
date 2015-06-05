@@ -36,7 +36,7 @@ import Model.Describe;
 import Model.SqlConnection;
 
 
-public class ViewFrame extends JFrame {
+public class ViewFrame extends JFrame implements View{
 	
 	private JPanel contentPane;
 	private JTextField textField;
@@ -55,7 +55,7 @@ public class ViewFrame extends JFrame {
 		this.acct = acct;
 		Main.setUIFont(new javax.swing.plaf.FontUIResource("Malgun Gothic",Font.PLAIN,13));
 		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 500, 400);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -72,14 +72,13 @@ public class ViewFrame extends JFrame {
 		TitlePanel.setLayout(gbl_TitlePanel);
 		
 		accountNameLabel = new JLabel();
-		accountNameLabel.setFont(new Font("Malgun Gothic", Font.PLAIN, 20));
 		GridBagConstraints gbc_accountNameLabel = new GridBagConstraints();
 		gbc_accountNameLabel.insets = new Insets(0, 0, 5, 5);
 		gbc_accountNameLabel.gridx = 0;
 		gbc_accountNameLabel.gridy = 0;
 		TitlePanel.add(accountNameLabel, gbc_accountNameLabel);
 		
-		label = new JLabel("잔액 : 10,300 원");
+		label = new JLabel("");
 		GridBagConstraints gbc_label = new GridBagConstraints();
 		gbc_label.insets = new Insets(0, 0, 5, 0);
 		gbc_label.anchor = GridBagConstraints.EAST;
@@ -106,7 +105,7 @@ public class ViewFrame extends JFrame {
 		
 		textField = new JTextField();
 		searchPanel.add(textField);
-		textField.setColumns(20);
+		textField.setColumns(20);		
 		
 		JButton btnNewButton_3 = new JButton("검색");
 		searchPanel.add(btnNewButton_3);
@@ -133,6 +132,17 @@ public class ViewFrame extends JFrame {
 		
 		JPanel ButtonPanel = new JPanel();
 		contentPane.add(ButtonPanel, BorderLayout.SOUTH);
+		
+		JButton btnNewButton_4 = new JButton("이동");
+		ButtonPanel.add(btnNewButton_4);
+		btnNewButton_4.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				move();
+			}
+		});
 		
 		JButton btnNewButton = new JButton("추가");
 		ButtonPanel.add(btnNewButton);
@@ -214,6 +224,10 @@ public class ViewFrame extends JFrame {
 	
 	public void add(){
 		new AddEditDesc(new Describe(), this);
+	}
+	
+	public void move(){
+		new AddMoveDesc(this);
 	}
 	
 	public void edit(){

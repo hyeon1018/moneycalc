@@ -41,7 +41,7 @@ import Model.SqlConnection;
 import java.awt.SystemColor;
 
 
-public class MainFrame extends JFrame {
+public class MainFrame extends JFrame implements View{
 	private JPanel contentPane;
 
 	//Account
@@ -130,6 +130,14 @@ public class MainFrame extends JFrame {
 		JButton editButton = new JButton("계좌 편집");
 		editButton.setBounds(12, 226, 97, 25);
 		accountPanel.add(editButton);
+		editButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				new AddEditAccount(selAccount, MainFrame.this);
+			}
+		});
 
 		JButton createButton = new JButton("계좌 생성");
 		createButton.setBounds(127, 226, 97, 25);
@@ -139,7 +147,7 @@ public class MainFrame extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Make add Account Frame, and Connect.
-
+				new AddEditAccount(new Account(), MainFrame.this);
 			}
 		});
 
@@ -180,7 +188,7 @@ public class MainFrame extends JFrame {
 		JButton btnNewButton_2 = new JButton("편집");
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// TODO 
+				new AddEditQuick(selQuick, MainFrame.this);
 			}
 		});
 		btnNewButton_2.setBounds(12, 228, 97, 25);
@@ -189,6 +197,7 @@ public class MainFrame extends JFrame {
 		JButton btnNewButton_4 = new JButton("추가");
 		btnNewButton_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				new AddEditQuick(new Describe(), MainFrame.this);
 			}
 		});
 		btnNewButton_4.setBounds(127, 228, 97, 25);
@@ -229,7 +238,7 @@ public class MainFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				update();
+				updateView();
 			}
 		});
 
@@ -248,9 +257,17 @@ public class MainFrame extends JFrame {
 
 		JButton btnNewButton = new JButton("종료");
 		buttonPanel.add(btnNewButton);
+		btnNewButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				System.exit(0);
+			}
+		});
 
 
-		update();
+		updateView();
 	}
 
 	public void updateAccountSelect(){
@@ -266,11 +283,14 @@ public class MainFrame extends JFrame {
 
 		}
 		selectBox.setModel(new DefaultComboBoxModel(v));
-		if(tmp < 0){
-			tmp = 0;
+		
+		
+		try{
+		selectBox.setSelectedIndex(tmp);
+		}catch(Exception e){
+			selectBox.setSelectedIndex(-1);
 		}
 
-		selectBox.setSelectedIndex(tmp);
 		updateAccountInfo();
 	}
 	public void updateAccountInfo(){
@@ -300,12 +320,12 @@ public class MainFrame extends JFrame {
 		} catch (SQLException e) {
 		}
 		QuickBox.setModel(new DefaultComboBoxModel(v));
-		if(tmp < 0){
-			tmp = 0;
-		}
-
+		
+		try{
 		QuickBox.setSelectedIndex(tmp);
-
+		}catch(Exception e){
+			QuickBox.setSelectedIndex(-1);
+		}
 		updateQuickInfo();
 	}
 	public void updateQuickInfo(){
@@ -330,8 +350,9 @@ public class MainFrame extends JFrame {
 			moneyBodyLabel.setText("");
 		}
 	}
-
-	public void update(){
+	
+	@Override
+	public void updateView(){
 		updateAccountSelect();
 		updateQuickSelect();
 	}
