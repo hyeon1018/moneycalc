@@ -76,7 +76,7 @@ public class AddEditQuick extends JFrame {
 		contentPane.setLayout(null);
 
 		spinner = new JSpinner();
-		spinner.setModel(new SpinnerNumberModel(2015, 1950, 2500, 1));
+		spinner.setModel(new SpinnerNumberModel(1950, 1950, 2500, 1));
 		spinner.setBounds(12, 13, 61, 22);
 		contentPane.add(spinner);
 		spinner.setEnabled(false);
@@ -86,7 +86,7 @@ public class AddEditQuick extends JFrame {
 		contentPane.add(label);
 
 		spinner_1 = new JSpinner();
-		spinner_1.setModel(new SpinnerNumberModel(5, 1, 12, 1));
+		spinner_1.setModel(new SpinnerNumberModel(1, 1, 12, 1));
 		spinner_1.setBounds(85, 13, 44, 22);
 		contentPane.add(spinner_1);
 		spinner_1.setEnabled(false);
@@ -96,7 +96,7 @@ public class AddEditQuick extends JFrame {
 		contentPane.add(label_1);
 
 		spinner_2 = new JSpinner();
-		spinner_2.setModel(new SpinnerNumberModel(20, 1, 31, 1));
+		spinner_2.setModel(new SpinnerNumberModel(1, 1, 31, 1));
 		spinner_2.setBounds(141, 13, 44, 22);
 		contentPane.add(spinner_2);
 		spinner_2.setEnabled(false);

@@ -113,7 +113,6 @@ public class ViewFrame extends JFrame implements View{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				updateTable();
 			}
 		});
@@ -139,7 +138,6 @@ public class ViewFrame extends JFrame implements View{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				move();
 			}
 		});
@@ -150,7 +148,6 @@ public class ViewFrame extends JFrame implements View{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				add();
 			}
 		});
@@ -161,7 +158,6 @@ public class ViewFrame extends JFrame implements View{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO getDescribe from selected colume;
 				edit();
 			}
 		});
@@ -172,8 +168,6 @@ public class ViewFrame extends JFrame implements View{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO getDecrbie from selected colume;
-				// TODO remove Decribe;
 				delete();
 			}
 		});
@@ -184,7 +178,6 @@ public class ViewFrame extends JFrame implements View{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				dispose();
 			}
 		});

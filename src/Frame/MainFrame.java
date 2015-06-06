@@ -45,7 +45,7 @@ public class MainFrame extends JFrame implements View{
 	private JPanel contentPane;
 
 	//Account
-	private Account selAccount; //선택 계좌
+	private Account selAccount = null; //선택 계좌
 	private JComboBox selectBox; //계좌 선택
 	private JTextArea decribeText; //계좌 설명;
 	private JLabel moneyBodyLabel;	//계좌 잔액
@@ -120,9 +120,11 @@ public class MainFrame extends JFrame implements View{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				try {
-					ViewFrame v = new ViewFrame(selAccount);
-				} catch (SQLException e1) {
+				if(selAccount.getName() != null){
+					try {
+						ViewFrame v = new ViewFrame(selAccount);
+					} catch (SQLException e1) {
+					}
 				}
 			}
 		});
@@ -131,7 +133,7 @@ public class MainFrame extends JFrame implements View{
 		editButton.setBounds(12, 226, 97, 25);
 		accountPanel.add(editButton);
 		editButton.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
@@ -258,7 +260,7 @@ public class MainFrame extends JFrame implements View{
 		JButton btnNewButton = new JButton("종료");
 		buttonPanel.add(btnNewButton);
 		btnNewButton.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
@@ -283,10 +285,10 @@ public class MainFrame extends JFrame implements View{
 
 		}
 		selectBox.setModel(new DefaultComboBoxModel(v));
-		
-		
+
+
 		try{
-		selectBox.setSelectedIndex(tmp);
+			selectBox.setSelectedIndex(tmp);
 		}catch(Exception e){
 			selectBox.setSelectedIndex(-1);
 		}
@@ -320,9 +322,9 @@ public class MainFrame extends JFrame implements View{
 		} catch (SQLException e) {
 		}
 		QuickBox.setModel(new DefaultComboBoxModel(v));
-		
+
 		try{
-		QuickBox.setSelectedIndex(tmp);
+			QuickBox.setSelectedIndex(tmp);
 		}catch(Exception e){
 			QuickBox.setSelectedIndex(-1);
 		}
@@ -350,7 +352,7 @@ public class MainFrame extends JFrame implements View{
 			moneyBodyLabel.setText("");
 		}
 	}
-	
+
 	@Override
 	public void updateView(){
 		updateAccountSelect();

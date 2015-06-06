@@ -24,7 +24,6 @@ public class Main {
 		});
 	}
 	
-	
 	public static void setUIFont (javax.swing.plaf.FontUIResource f)
     {
         java.util.Enumeration keys = UIManager.getDefaults().keys();
