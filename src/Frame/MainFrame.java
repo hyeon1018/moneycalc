@@ -54,6 +54,7 @@ public class MainFrame extends JFrame implements View{
 	private Describe selQuick; //선택 퀵
 	private JComboBox QuickBox;	//퀵 선택
 	private JLabel lblNewLabel_2; //
+	private JLabel label_1;
 	private JLabel label;	//지출 / 수입
 	private JLabel lblNewLabel_3;
 
@@ -186,7 +187,20 @@ public class MainFrame extends JFrame implements View{
 		JButton QuickButton = new JButton("빠른 기록");
 		QuickButton.setBounds(12, 176, 212, 39);
 		quickPanel.add(QuickButton);
+		QuickButton.addActionListener(new ActionListener() {
 
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(JOptionPane.showConfirmDialog(null, selQuick.getDesc() +"를 기록합니까?", "기록 확인", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_NO_OPTION)
+				{
+					selQuick.setCal(Calendar.getInstance());
+					selQuick.addDescribe();
+					updateAccountInfo();
+				};
+			}
+		});
+		
+		
 		JButton btnNewButton_2 = new JButton("편집");
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -204,32 +218,34 @@ public class MainFrame extends JFrame implements View{
 		});
 		btnNewButton_4.setBounds(127, 228, 97, 25);
 		quickPanel.add(btnNewButton_4);
-
+		
+		
 		lblNewLabel_2 = new JLabel("원");
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNewLabel_2.setBounds(127, 147, 97, 16);
+		lblNewLabel_2.setBounds(77, 147, 147, 16);
 		quickPanel.add(lblNewLabel_2);
 
+		label_1 = new JLabel();
+		label_1.setHorizontalAlignment(SwingConstants.RIGHT);
+		label_1.setBounds(77, 89, 147, 16);
+		quickPanel.add(label_1);
+		
 		lblNewLabel_3 = new JLabel("");
 		lblNewLabel_3.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNewLabel_3.setBounds(127, 118, 97, 16);
+		lblNewLabel_3.setBounds(77, 118, 147, 16);
 		quickPanel.add(lblNewLabel_3);
 
 		label = new JLabel();
-		label.setBounds(56, 147, 53, 16);
-		quickPanel.add(label);
-		QuickButton.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if(JOptionPane.showConfirmDialog(null, selQuick.getDesc() +"를 기록합니까?", "기록 확인", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_NO_OPTION)
-				{
-					selQuick.setCal(Calendar.getInstance());
-					selQuick.addDescribe();
-					updateAccountInfo();
-				};
-			}
-		});
+		label.setBounds(12, 147, 53, 16);
+		quickPanel.add(label);	
+		
+		JLabel lblNewLabel_1 = new JLabel("계좌 :");
+		lblNewLabel_1.setBounds(12, 89, 53, 16);
+		quickPanel.add(lblNewLabel_1);
+		
+		JLabel label_2 = new JLabel("분류 : ");
+		label_2.setBounds(12, 118, 53, 16);
+		quickPanel.add(label_2);
 
 		JPanel buttonPanel = new JPanel();
 		contentPane.add(buttonPanel, BorderLayout.SOUTH);
@@ -339,13 +355,18 @@ public class MainFrame extends JFrame implements View{
 			lblNewLabel_2.setText(Integer.toString(Math.abs(selQuick.getAmount())) + "원");
 
 			Account a = Account.getAccount(selQuick.getAccountNum());
-			lblNewLabel_3.setText(a.getName());
+			label_1.setText(a.getName());
 
+			lblNewLabel_3.setText(SqlConnection.getInstance().getSortName(selQuick.getSortNum()));
+			
 			if(selQuick.getAmount() > 0){
 				label.setText("수입");
 			}else{
 				label.setText("지출");
 			}
+			
+			
+			
 
 		}catch(Exception e){
 			decribeText.setText("");

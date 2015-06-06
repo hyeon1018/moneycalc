@@ -34,6 +34,7 @@ import javax.swing.ListSelectionModel;
 import Model.Account;
 import Model.Describe;
 import Model.SqlConnection;
+import javax.swing.ScrollPaneConstants;
 
 
 public class ViewFrame extends JFrame implements View{
@@ -121,6 +122,7 @@ public class ViewFrame extends JFrame implements View{
 		ViewPanel.setLayout(new BorderLayout(0, 0));
 		
 		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		ViewPanel.add(scrollPane);
 		
 		table = new JTable( );
@@ -172,7 +174,7 @@ public class ViewFrame extends JFrame implements View{
 			}
 		});
 		
-		JButton button = new JButton("종료");
+		JButton button = new JButton("나가기");
 		ButtonPanel.add(button);
 		button.addActionListener(new ActionListener() {
 			
