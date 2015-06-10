@@ -142,6 +142,7 @@ public class Account {
 
 	}
 
+
 	public void addAccount(){
 		SqlConnection.getInstance().makeAccount(this);
 	}

@@ -37,6 +37,7 @@ public class AdminSortFrame extends JFrame {
 	public AdminSortFrame() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 400, 300);
+		setTitle("분류 관리");
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -47,12 +48,20 @@ public class AdminSortFrame extends JFrame {
 		
 		JButton btnNewButton_3 = new JButton("자동 분류 관리");
 		buttonPanel.add(btnNewButton_3);
+		buttonPanel.setEnabled(false);
 		btnNewButton_3.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO getSelected Sort name and get SortStrings
-				// new AutoSortAdminFrame();
+				ResultSet  rs = SqlConnection.getInstance().sendQuery("SELECT SORTNO FROM SORT WHERE SORTINFO = '" + list.getSelectedValue().toString() + "';");
+				try {
+					rs.next();
+					new AdminAutoSortFrame(rs.getInt(1));
+				} catch (Exception e2) {
+					
+				}
+				
 			}
 		});
 		JButton btnNewButton_2 = new JButton("추가");

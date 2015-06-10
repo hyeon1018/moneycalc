@@ -64,6 +64,7 @@ public class MainFrame extends JFrame implements View{
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 500, 400);
+		setTitle("MoneyCalc");
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -191,16 +192,18 @@ public class MainFrame extends JFrame implements View{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(JOptionPane.showConfirmDialog(null, selQuick.getDesc() +"를 기록합니까?", "기록 확인", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_NO_OPTION)
-				{
-					selQuick.setCal(Calendar.getInstance());
-					selQuick.addDescribe();
-					updateAccountInfo();
-				};
+				if(selQuick.getDesc() != null){
+					if(JOptionPane.showConfirmDialog(null, selQuick.getDesc() +"를 기록합니까?", "기록 확인", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_NO_OPTION)
+					{
+						selQuick.setCal(Calendar.getInstance());
+						selQuick.addDescribe();
+						updateAccountInfo();
+					}
+				}
 			}
 		});
-		
-		
+
+
 		JButton btnNewButton_2 = new JButton("편집");
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -218,8 +221,8 @@ public class MainFrame extends JFrame implements View{
 		});
 		btnNewButton_4.setBounds(127, 228, 97, 25);
 		quickPanel.add(btnNewButton_4);
-		
-		
+
+
 		lblNewLabel_2 = new JLabel("원");
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel_2.setBounds(77, 147, 147, 16);
@@ -229,7 +232,7 @@ public class MainFrame extends JFrame implements View{
 		label_1.setHorizontalAlignment(SwingConstants.RIGHT);
 		label_1.setBounds(77, 89, 147, 16);
 		quickPanel.add(label_1);
-		
+
 		lblNewLabel_3 = new JLabel("");
 		lblNewLabel_3.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel_3.setBounds(77, 118, 147, 16);
@@ -238,11 +241,11 @@ public class MainFrame extends JFrame implements View{
 		label = new JLabel();
 		label.setBounds(12, 147, 53, 16);
 		quickPanel.add(label);	
-		
+
 		JLabel lblNewLabel_1 = new JLabel("계좌 :");
 		lblNewLabel_1.setBounds(12, 89, 53, 16);
 		quickPanel.add(lblNewLabel_1);
-		
+
 		JLabel label_2 = new JLabel("분류 : ");
 		label_2.setBounds(12, 118, 53, 16);
 		quickPanel.add(label_2);
@@ -262,6 +265,14 @@ public class MainFrame extends JFrame implements View{
 
 		JButton btnNewButton_3 = new JButton("통계");
 		buttonPanel.add(btnNewButton_3);
+		btnNewButton_3.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				new StatFrame();
+			}
+		});
 
 		JButton btnNewButton_1 = new JButton("분류 관리");
 		buttonPanel.add(btnNewButton_1);
@@ -321,6 +332,7 @@ public class MainFrame extends JFrame implements View{
 			moneyBodyLabel.setText(Integer.toString(selAccount.getMoney()));
 
 		}catch(Exception e){
+			e.printStackTrace();
 			decribeText.setText("");
 			moneyBodyLabel.setText("");
 		}
@@ -358,19 +370,18 @@ public class MainFrame extends JFrame implements View{
 			label_1.setText(a.getName());
 
 			lblNewLabel_3.setText(SqlConnection.getInstance().getSortName(selQuick.getSortNum()));
-			
+
 			if(selQuick.getAmount() > 0){
 				label.setText("수입");
 			}else{
 				label.setText("지출");
 			}
 			
-			
-			
-
 		}catch(Exception e){
-			decribeText.setText("");
-			moneyBodyLabel.setText("");
+			label_1.setText("");
+			lblNewLabel_2.setText("원");
+			label.setText("");
+			lblNewLabel_3.setText("");
 		}
 	}
 

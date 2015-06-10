@@ -68,10 +68,13 @@ public class AddEditDesc extends JFrame {
 		this.view = vf;
 		this.desc = d;
 
+		
+		
 		Main.setUIFont(new javax.swing.plaf.FontUIResource("Malgun Gothic",Font.PLAIN,13));
-
+		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 400, 300);
+		setTitle("Add/Edit Describe - No." + desc.getNum());
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -270,7 +273,7 @@ public class AddEditDesc extends JFrame {
 			rs2.next();
 			desc.setSortNum(rs2.getInt(1));
 		}catch(Exception e){
-			desc.removeSortNum();
+			desc.setAutoSortNum(editorPane.getText());
 		}
 	}
 

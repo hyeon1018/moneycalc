@@ -58,6 +58,7 @@ public class ViewFrame extends JFrame implements View{
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 500, 400);
+		setTitle(acct.getName() + "의 기록");
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -185,7 +186,6 @@ public class ViewFrame extends JFrame implements View{
 		});
 		
 		updateView();
-		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		this.setVisible(true);
 	}
 	

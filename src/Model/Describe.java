@@ -215,6 +215,20 @@ public class Describe {
 	public void setSortNum(int sortNum) {
 		this.sortNum = sortNum;
 	}
+	public void setAutoSortNum(String comment){
+		ResultSet rs = SqlConnection.getInstance().sendQuery("SELECT * FROM SORTSTRING");
+		try{
+			while(rs.next()){
+				if(comment.contains(rs.getString(1))){
+					this.sortNum = rs.getInt(2);
+					return;
+				}
+			}
+		}catch(Exception e){
+			this.sortNum = null;
+		}
+		
+	}
 	public void removeSortNum(){
 		this.sortNum = null;
 	}
